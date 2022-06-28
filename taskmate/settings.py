@@ -1,3 +1,5 @@
+from threading import local
+import django_heroku
 import os
 import environ
 from pathlib import Path
@@ -11,12 +13,12 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-r(hj%@@*8v*vk$7xgu(r+8&h=qm9u1b6zlp*bzwjx%2p@=3)2y'
+SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DJANGO_DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env('DJANGO_ALLOWED_HOSTS')
 
 
 # Application definition
@@ -121,3 +123,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'todolist'
 LOGIN_URL='login'
+
+django_heroku.settings(locals())
