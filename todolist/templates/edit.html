@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% block title %}
+<title>Update Task</title>
+{% endblock title %} {% block content %}
+<div class="container">
+  <br />
+
+  {% if task_edit.owner == request.user %}
+  <form method="POST" class="row">
+    {% csrf_token %}
+    <label for="taskname" class="form-label col-lg-3">Update task</label>
+    <input
+      type="text"
+      class="form-control col-lg-7"
+      id="taskname"
+      placeholder="{{task_edit.task}}"
+      value="{{task_edit.task}}"
+      name="task"
+    />
+
+    <input
+      type="hidden"
+      class="form-control col-lg-7"
+      value="{{task_edit.done}}"
+      name="done"
+    />
+    <button type="submit" class="btn btn-primary col-lg-2">Update Task</button>
+  </form>
+  {% else %}
+  <p>Access restricted! You are not the rightful owner</p>
+  {% endif %}
+</div>
+{% endblock content %}
